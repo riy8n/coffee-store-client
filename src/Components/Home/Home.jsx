@@ -14,7 +14,7 @@ const Home = () => {
                      coffees.map(coffee => <CoffeeCard 
                          key={coffee._id} 
                          coffees = {coffees} 
-                         setCoffees={setCoffees}                        setCoffees = {setCoffees}
+                          setCoffees = {setCoffees}
                          coffee={coffee}></CoffeeCard>)
                  }             </div>
         </div>
