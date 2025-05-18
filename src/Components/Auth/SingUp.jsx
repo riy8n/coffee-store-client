@@ -1,6 +1,7 @@
 import React, { use, useContext } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router';
 
 const SingUp = () => {
      const { createUser } = useContext(AuthContext);
@@ -9,20 +10,24 @@ const SingUp = () => {
         e.preventDefault()
         const form=e.target
         const formData=new FormData(form)
-        const {email,password,...userProfile}=Object.fromEntries(formData.entries())
-   
-        console.log(email,password )
+        const {email,password, ...restData}=Object.fromEntries(formData.entries())
+      console.log(email,password )
         // firebase create
           createUser(email, password)
       .then(result => {
        
         console.log("User created:", result.user);
-       
-      })
-      .catch(error => {
-        console.error("Error:", error);
-      });
-      // data send to backend
+        const userProfile={
+          email,...restData,
+          
+          creationTime: result.user?.metadata?.creationTime,
+          
+          
+        lastSignInTime: result.user?.metadata?.
+          lastSignInTime
+
+        }
+        // data send to backend
           fetch('http://localhost:3000/users',{
             method: 'POST',
           headers: {
@@ -49,6 +54,12 @@ const SingUp = () => {
        
         )
           .catch(error => console.error("Backend error:", error));
+       
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
+      
 
 
 
@@ -78,6 +89,7 @@ const SingUp = () => {
           <div><a className="link link-hover">Forgot password?</a></div>
           <button className="btn btn-neutral mt-4">SingUp</button>
         </form>
+        <p>Don't you have any account?Please <span><Link to='/singin'>SingIn</Link></span></p>
       </div>
     </div>
 

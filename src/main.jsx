@@ -14,6 +14,7 @@ import CoffeeDetails from './Components/CoffeeDetails/CoffeeDetails.jsx';
 import SingIn from './Components/Auth/Singin.jsx';
 import SingUp from './Components/Auth/SingUp.jsx';
 import AuthProvider from './Context/AuthProvider.jsx';
+import Users from './Users/Users.jsx';
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,11 @@ const router = createBrowserRouter([
       path:'singup',
       element:<SingUp></SingUp>
 
+    },
+    {
+      path:'users',
+      loader:()=>fetch('http://localhost:3000/users'),
+      element:<Users></Users>
     }
    ]
   },
